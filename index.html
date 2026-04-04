@@ -872,10 +872,14 @@
             }
         };
 
-        let currentLang = 'vi';
+        let currentLang = localStorage.getItem('lang') || 'vi';
+        let isTranslating = false;
+
 
         // Hàm dịch toàn bộ trang
         function translatePage() {
+            if (isTranslating) return;
+            isTranslating = true;
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (translations[currentLang][key]) {
@@ -891,9 +895,19 @@
                 }
             });
 
+            document.getElementById('lang-text').textContent = currentLang.toUpperCase();
+            localStorage.setItem('lang', currentLang);
+            isTranslating = false;
+        }
+
+            window.toggleLanguage = function() {
+                if (isTranslating) return;
+                currentLang = currentLang === 'vi' ? 'en' : 'vi';
+                translatePage();
+            };
+
             // Cập nhật text của nút ngôn ngữ
             document.getElementById('lang-text').textContent = currentLang.toUpperCase();
-        }
 
         // Toggle ngôn ngữ
         function toggleLanguage() {
