@@ -275,10 +275,10 @@
                         <p class="mt-4 text-gray-600 text-[15px] leading-relaxed" data-i18n="festival1-desc">
                             Ngày sum vầy gia đình, chào đón năm mới với hoa đào, bánh chưng và pháo hoa.
                         </p>
-                        <a href="https://vi.wikipedia.org/wiki/Tết_Nguyên_Đán" class="mt-8 inline-flex items-center text-[#c8102e] hover:gap-x-3 group">
+                        <div onclick="showFestivalModal(1)" class="mt-8 inline-flex items-center text-[#c8102e] hover:gap-x-3 group cursor-pointer">
                             <span data-i18n="learn-more">Tìm hiểu thêm</span>
-                          <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1"></i>
-                        </a>
+                            <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1"></i>
+                        </div>
                     </div>
                 </div>
                 
@@ -293,10 +293,10 @@
                         <p class="mt-4 text-gray-600 text-[15px] leading-relaxed" data-i18n="festival2-desc">
                             Tưởng nhớ công ơn các vua Hùng – thủy tổ dân tộc Việt Nam.
                         </p>
-                        <a href="https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_H%C3%B9ng#L%E1%BB%85_h%E1%BB%99i_%C4%91%E1%BB%81n_H%C3%B9ng" class="mt-8 inline-flex items-center text-[#c8102e] hover:gap-x-3 group">
+                        <div onclick="showFestivalModal(2)" class="mt-8 inline-flex items-center text-[#c8102e] hover:gap-x-3 group cursor-pointer">
                             <span data-i18n="learn-more">Tìm hiểu thêm</span>
-                          <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1"></i>
-                        </a>
+                            <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1"></i>
+                        </div>
                     </div>
                 </div>
                 
@@ -311,10 +311,10 @@
                         <p class="mt-4 text-gray-600 text-[15px] leading-relaxed" data-i18n="festival3-desc">
                             Đèn lồng rực rỡ, múa lân, bánh trung thu và trăng rằm lung linh.
                         </p>
-                        <a href="https://vi.wikipedia.org/wiki/T%E1%BA%BFt_Trung_thu" class="mt-8 inline-flex items-center text-[#c8102e] hover:gap-x-3 group">
+                        <div onclick="showFestivalModal(3)" class="mt-8 inline-flex items-center text-[#c8102e] hover:gap-x-3 group cursor-pointer">
                             <span data-i18n="learn-more">Tìm hiểu thêm</span>
-                          <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1"></i>
-                        </a>
+                            <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1"></i>
+                        </div>
                     </div>
                 </div>
                 
@@ -329,10 +329,10 @@
                         <p class="mt-4 text-gray-600 text-[15px] leading-relaxed" data-i18n="festival4-desc">
                             Hát quan họ đối đáp, di sản văn hóa phi vật thể của nhân loại.
                         </p>
-                        <a href="https://vi.wikipedia.org/wiki/Quan_h%E1%BB%8D" class="mt-8 inline-flex items-center text-[#c8102e] hover:gap-x-3 group">
+                        <div onclick="showFestivalModal(4)" class="mt-8 inline-flex items-center text-[#c8102e] hover:gap-x-3 group cursor-pointer">
                             <span data-i18n="learn-more">Tìm hiểu thêm</span>
-                          <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1"></i>
-                        </a>
+                            <i class="fa-solid fa-arrow-right ml-2 group-hover:translate-x-1"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -594,6 +594,17 @@
         </div>
     </footer>
 
+    <!-- ==================== MODAL CHI TIẾT LỄ HỘI (giống hệt trang Anh Hùng Dân Tộc) ==================== -->
+    <div id="festival-modal" class="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-auto shadow-2xl relative">
+            <div id="modal-content" class="p-8 md:p-12"></div>
+            
+            <!-- Nút đóng -->
+            <button onclick="hideFestivalModal()" 
+                    class="absolute top-6 right-6 text-red-600 hover:text-red-700 text-4xl leading-none font-light">×</button>
+        </div>
+    </div>
+
     <script>
         // Khởi tạo Tailwind
         function initializeTailwind() {
@@ -743,7 +754,7 @@
                 "gallery2": "Lễ hội miếu Bà Chúa Xứ",
                 "gallery3": "Lễ hội chùa Hương",
                 "gallery4": "Lễ hội Nghinh Ông Cần Giờ",
-                "gallery5": "ễ hội Tháp Bà Ponagar Nha Trang",
+                "gallery5": "Lễ hội Tháp Bà Ponagar Nha Trang",
                 "gallery6": "Lễ hội Hoa Lư",
                 "gallery7": "Lễ hội xuân Yên Tử",
                 "gallery8": "Hội Lồng Tồng",
@@ -917,6 +928,103 @@
             // Thông báo nhẹ (có thể bỏ nếu không muốn)
             // console.log('Đã chuyển sang: ' + currentLang.toUpperCase());
         }
+
+        // ==================== DATA CHI TIẾT LỄ HỘI (dùng cho modal) ====================
+        const festivalsData = {
+            1: {
+                id: 1,
+                name: "Tết Nguyên Đán",
+                date: "01/01 ÂL",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Xuan_2016_Binh_Than%2C_duong_nguyen_hue%2C_phuong_ben_nghe%2C_Qu%E1%BA%ADn_1%2C_TPHCM%2C_Vi%E1%BB%87t_Nam_-_panoramio.jpg/1280px-Xuan_2016_Binh_Than%2C_duong_nguyen_hue%2C_phuong_ben_nghe%2C_Qu%E1%BA%ADn_1%2C_TPHCM%2C_Vi%E1%BB%87t_Nam_-_panoramio.jpg",
+                fullBio: "Tết Nguyên Đán là lễ hội truyền thống quan trọng nhất của dân tộc Việt Nam, đánh dấu sự khởi đầu của một năm mới theo âm lịch. Đây là dịp để mọi người sum họp gia đình, dọn dẹp nhà cửa, trang trí hoa đào, làm bánh chưng và bắn pháo hoa, mong cầu một năm mới an khang, thịnh vượng.",
+                achievement: "Ngày sum vầy gia đình, chào đón năm mới với hoa đào, bánh chưng và pháo hoa",
+                quote: "Tết đến xuân sang, muôn hoa đua nở, gia đình sum vầy, hạnh phúc tràn đầy."
+            },
+            2: {
+                id: 2,
+                name: "Lễ hội Đền Hùng",
+                date: "10/03 ÂL",
+                image: "https://upload.wikimedia.org/wikipedia/commons/f/f8/Mausoleum_of_Hung_King.JPG",
+                fullBio: "Lễ hội Đền Hùng được tổ chức hàng năm tại Khu di tích lịch sử Đền Hùng, Phú Thọ để tưởng nhớ công ơn các vua Hùng – những người đã sáng lập ra nhà nước Văn Lang, thuỷ tổ của dân tộc Việt Nam. Đây là dịp để nhân dân cả nước tri ân nguồn cội và thể hiện lòng biết ơn sâu sắc.",
+                achievement: "Tưởng nhớ công ơn các vua Hùng – thuỷ tổ dân tộc Việt Nam",
+                quote: "Công ơn các vua Hùng muôn đời ghi nhớ, dân tộc Việt Nam mãi mãi tự hào."
+            },
+            3: {
+                id: 3,
+                name: "Tết Trung Thu",
+                date: "15/08 ÂL",
+                image: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Mid-Autumn_Festival-beijing.jpg",
+                fullBio: "Tết Trung Thu là lễ hội thiếu nhi rực rỡ nhất trong năm với đèn lồng, múa lân, bánh trung thu và trăng rằm lung linh. Đây là dịp để trẻ em vui chơi, thể hiện lòng hiếu thảo với cha mẹ và ông bà, đồng thời gìn giữ nét đẹp văn hóa dân gian.",
+                achievement: "Đèn lồng rực rỡ, múa lân, bánh trung thu và trăng rằm lung linh",
+                quote: "Trăng rằm sáng tỏ, thiếu nhi vui đùa, bánh trung thu ngọt ngào, tình thân thêm đậm đà."
+            },
+            4: {
+                id: 4,
+                name: "Lễ hội Quan Họ",
+                date: "Tháng 1-3",
+                image: "https://upload.wikimedia.org/wikipedia/commons/6/60/Quan_ho_bac_ninh_o_ha_noi.jpg",
+                fullBio: "Lễ hội Quan Họ Bắc Ninh là di sản văn hóa phi vật thể đại diện của nhân loại được UNESCO công nhận năm 2009. Nam nữ thanh niên đối đáp những bài hát dân ca mang đậm tình yêu quê hương, thể hiện nét đẹp văn hóa tình cảm của người Việt.",
+                achievement: "Hát quan họ đối đáp, di sản văn hóa phi vật thể của nhân loại",
+                quote: "Quan họ Bắc Ninh, tiếng hát vang vọng, tình người sâu sắc, mãi mãi lưu truyền."
+            }
+        };
+
+        // ==================== HIỂN THỊ MODAL CHI TIẾT (giống hệt Anh Hùng Dân Tộc) ====================
+        function showFestivalModal(id) {
+            const fest = festivalsData[id];
+            if (!fest) return;
+
+            const modalContent = document.getElementById('modal-content');
+            modalContent.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="text-red-600 text-sm font-bold">${fest.date}</div>
+                        <h2 class="text-4xl font-bold heading-font" style="font-family: 'Playfair Display', serif;">${fest.name}</h2>
+                    </div>
+                    <img src="${fest.image}" alt="${fest.name}" 
+                         class="w-28 h-28 md:w-36 md:h-36 object-cover rounded-3xl shadow-md">
+                </div>
+
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Phần mô tả chi tiết -->
+                    <div class="md:col-span-2">
+                        <p class="text-lg leading-relaxed">${fest.fullBio}</p>
+                        
+                        <!-- Thành tựu nổi bật -->
+                        <div class="mt-8 bg-red-50 p-6 rounded-3xl">
+                            <div class="uppercase text-xs tracking-widest text-red-600">THÀNH TỰU NỔI BẬT</div>
+                            <p class="font-medium text-xl">${fest.achievement}</p>
+                        </div>
+                    </div>
+
+                    <!-- Quote -->
+                    <div>
+                        <div class="italic border-l-4 border-red-600 pl-6 py-1 text-xl">
+                            “${fest.quote}”
+                        </div>
+                        
+                        <div class="mt-8 text-sm flex items-center gap-3">
+                            <i class="fa-solid fa-bookmark text-2xl text-yellow-400"></i>
+                            <div>
+                                Lễ hội này được <span class="font-semibold">hàng triệu người Việt</span> tham gia<br>và yêu mến.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const modal = document.getElementById('festival-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        // ==================== ẨN MODAL ====================
+        function hideFestivalModal() {
+            const modal = document.getElementById('festival-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
         // Smooth scroll cho các link
         document.addEventListener('DOMContentLoaded', () => {
             initializeTailwind()
@@ -935,6 +1043,14 @@
                     }
                 })
             })
+
+            // Đóng modal khi click ra ngoài
+            const modal = document.getElementById('festival-modal');
+            if (modal) {
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) hideFestivalModal();
+                });
+            }
         })
     </script>
 </body>
